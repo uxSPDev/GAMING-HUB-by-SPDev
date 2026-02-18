@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAMING HUB by SPDev</title>
+    <!-- BROWSER ICON (favicon) – simple game controller SVG, shows in top left corner -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fbbf24'%3E%3Cpath d='M17 9H7v2h10V9zm-4 4H7v2h6v-2zm8-7v12c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2zM7 4H5v14h14V6h-2v12H7V4z'/%3E%3C/svg%3E">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(145deg, #0b0e17 0%, #1a1f2f 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            padding: 24px 16px;
+            margin: 0;
+        }
+
+        .hub-title {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-align: center;
+            color: #f5e56b;
+            text-shadow: 0 5px 0 #b45309, 0 10px 20px rgba(0,0,0,0.6), 0 0 15px #fbbf24;
+            margin-bottom: 30px;
+            word-break: break-word;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-stroke: 2px #b45309;
+        }
+
+        @media (max-width: 550px) {
+            .hub-title {
+                font-size: 2.2rem;
+                -webkit-text-stroke: 1px #b45309;
+            }
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px 24px;
+            max-width: 800px;
+            width: 100%;
+            padding: 36px 24px;
+            background: rgba(10, 14, 23, 0.7);
+            backdrop-filter: blur(6px);
+            border-radius: 70px 70px 50px 50px;
+            box-shadow: 0 30px 40px -15px rgba(0, 0, 0, 0.7), inset 0 1px 3px rgba(255, 215, 0, 0.15);
+            border: 1px solid rgba(255, 200, 50, 0.2);
+        }
+
+        .grid-btn {
+            aspect-ratio: 1 / 1;
+            border: none;
+            border-radius: 32px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 12px 0 rgba(0, 0, 0, 0.4), 0 5px 15px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 2px 0 #00000088;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            line-height: 1.2;
+            padding: 0 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-game {
+            pointer-events: auto;
+            opacity: 1;
+            filter: none;
+        }
+        .btn-game:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 0 rgba(0, 0, 0, 0.4), 0 10px 25px currentColor;
+        }
+        .btn-game:active {
+            transform: translateY(6px);
+            box-shadow: 0 6px 0 rgba(0, 0, 0, 0.5), 0 8px 15px black;
+        }
+
+        /* AVENTADOR RACER – new link, new vibrant orange/red gradient */
+        .btn-aventador {
+            background: radial-gradient(circle at 30% 20%, #fbbf24, #dc2626);
+            border-bottom: 6px solid #b91c1c;
+            color: white;
+            font-size: 1.1rem; /* fit longer name */
+        }
+        .btn-aventador:hover {
+            background: radial-gradient(circle at 30% 20%, #fcd34d, #ef4444);
+            box-shadow: 0 16px 0 rgba(0, 0, 0, 0.4), 0 10px 25px #f59e0b80;
+        }
+
+        /* LAST STRAND REMAKE – new link, fresh teal/blue */
+        .btn-strand {
+            background: radial-gradient(circle at 70% 30%, #2dd4bf, #0f766e);
+            border-bottom: 6px solid #115e59;
+            font-size: 1.2rem;
+        }
+        .btn-strand:hover {
+            background: radial-gradient(circle at 70% 30%, #5eead4, #14b8a6);
+            box-shadow: 0 16px 0 rgba(0, 0, 0, 0.4), 0 10px 25px #2dd4bf80;
+        }
+
+        /* decorative empty buttons */
+        .btn-deco-1 { background: radial-gradient(circle at 70% 30%, #4a69bd, #1e3799); border-bottom: 6px solid #0c2466; }
+        .btn-deco-2 { background: radial-gradient(circle at 30% 70%, #78e08f, #38ada9); border-bottom: 6px solid #079992; }
+        .btn-deco-3 { background: radial-gradient(circle at 60% 40%, #f6b93b, #e58e26); border-bottom: 6px solid #b45f1b; }
+        .btn-deco-4 { background: radial-gradient(circle at 40% 60%, #b71540, #6a2c70); border-bottom: 6px solid #4a235a; }
+        .btn-deco-5 { background: radial-gradient(circle at 65% 65%, #0abde3, #3498db); border-bottom: 6px solid #1f618d; }
+        .btn-deco-6 { background: radial-gradient(circle at 25% 40%, #f8c291, #e07a5f); border-bottom: 6px solid #bc6c25; }
+        .btn-deco-7 { background: radial-gradient(circle at 75% 25%, #786fa6, #574b90); border-bottom: 6px solid #3c2f6b; }
+
+        .btn-deco {
+            pointer-events: none;
+            opacity: 0.85;
+            filter: grayscale(0.15);
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.3), 0 5px 10px black;
+            border: 1px solid rgba(255,255,240,0.25);
+            transition: none;
+            color: transparent;
+            font-size: 0;
+        }
+        .btn-deco:hover {
+            transform: none;
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.3), 0 5px 10px black;
+            filter: grayscale(0.15);
+        }
+
+        @media (max-width: 500px) {
+            .grid-btn {
+                font-size: 1rem;
+                border-radius: 20px;
+            }
+            .button-grid {
+                gap: 16px;
+                padding: 20px 12px;
+            }
+            .btn-aventador, .btn-strand {
+                font-size: 0.9rem;
+            }
+        }
+
+        .future-note {
+            margin-top: 30px;
+            color: #94a3b8;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: rgba(0,0,0,0.3);
+            padding: 8px 20px;
+            border-radius: 60px;
+            backdrop-filter: blur(4px);
+            border: 1px solid #fbbf2440;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="hub-title">GAMING HUB <span style="color: #fcd34d; display: inline-block;">by SPDev</span></h1>
+
+    <div class="button-grid">
+        <!-- BUTTON 1 – AVENTADOR RACER (updated link) -->
+        <button class="grid-btn btn-game btn-aventador" id="aventadorBtn">AVENTADOR RACER</button>
+
+        <!-- BUTTON 2 – LAST STRAND REMAKE (updated link) -->
+        <button class="grid-btn btn-game btn-strand" id="strandBtn">Last Strand Remake</button>
+
+        <!-- BUTTONS 3 to 9 – EMPTY decorative (7 buttons) -->
+        <button class="grid-btn btn-deco btn-deco-1" disabled aria-label="empty placeholder"></button>
+        <button class="grid-btn btn-deco btn-deco-2" disabled aria-label="empty placeholder"></button>
+        <button class="grid-btn btn-deco btn-deco-3" disabled aria-label="empty placeholder"></button>
+        <button class="grid-btn btn-deco btn-deco-4" disabled aria-label="empty placeholder"></button>
+        <button class="grid-btn btn-deco btn-deco-5" disabled aria-label="empty placeholder"></button>
+        <button class="grid-btn btn-deco btn-deco-6" disabled aria-label="empty placeholder"></button>
+        <button class="grid-btn btn-deco btn-deco-7" disabled aria-label="empty placeholder"></button>
+    </div>
+
+    <div class="future-note">✨ future games will live here ✨</div>
+
+    <script>
+        (function() {
+            // BUTTON 1 – AVENTADOR RACER (new link)
+            const aventadorBtn = document.getElementById('aventadorBtn');
+            if (aventadorBtn) {
+                aventadorBtn.addEventListener('click', function() {
+                    window.open('https://uxspdev.github.io/-AVENTADOR-RACER-/', '_blank');
+                });
+            }
+
+            // BUTTON 2 – LAST STRAND REMAKE (new link)
+            const strandBtn = document.getElementById('strandBtn');
+            if (strandBtn) {
+                strandBtn.addEventListener('click', function() {
+                    window.open('https://uxspdev.github.io/Last-Strand-Remake/', '_blank');
+                });
+            }
+
+            // decorative buttons stay dead
+            const decoButtons = document.querySelectorAll('.btn-deco');
+            decoButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                });
+                btn.setAttribute('aria-disabled', 'true');
+            });
+        })();
+    </script>
+</body>
+</html>
